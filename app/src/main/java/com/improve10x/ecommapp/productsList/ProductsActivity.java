@@ -76,3 +76,5 @@ public class ProductsActivity extends BaseActivity {
         binding.productsRv.setAdapter(productsAdapter);
     }
 }
+
+

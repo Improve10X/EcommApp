@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.improve10x.ecommapp.BaseActivity;
 import com.improve10x.ecommapp.databinding.ActivityCategoriesBinding;
+import com.improve10x.ecommapp.models.Categories;
 import com.improve10x.ecommapp.productsList.ProductsActivity;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import retrofit2.Response;
 public class CategoriesActivity extends BaseActivity {
 
     private ActivityCategoriesBinding binding;
-    private ArrayList<String> categories = new ArrayList<>();
+    private List<Categories> categories = new ArrayList<>();
     private CategoriesAdapter categoriesAdapter;
 
     @Override
@@ -29,27 +30,28 @@ public class CategoriesActivity extends BaseActivity {
         binding = ActivityCategoriesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getSupportActionBar().setTitle("Categories");
+        fetchCategories();
         setUpCategoriesAdapter();
         setUpCategoriesRcv();
-        fetchCategories();
     }
 
     private void fetchCategories() {
-        Call<List<String>> call = fakeApiService.getCategories();
-        call.enqueue(new Callback<List<String>>() {
+        Call<List<Categories>> call = fakeApiService.getCategories();
+        call.enqueue(new Callback<List<Categories>>() {
             @Override
-            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
-                List<String> categoryList = response.body();
-                categoriesAdapter.setCategoriesData(categoryList);
-                Toast.makeText(CategoriesActivity.this, "Success", Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<List<Categories>> call, Response<List<Categories>> response) {
+                List<Categories> categories = response.body();
+                categoriesAdapter.setCategoriesData(categories);
+                Toast.makeText(CategoriesActivity.this, "Successfully got data", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(Call<List<String>> call, Throwable t) {
-                Toast.makeText(CategoriesActivity.this, "Failed to fetch data", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<List<Categories>> call, Throwable t) {
+                Toast.makeText(CategoriesActivity.this, "Failed to get", Toast.LENGTH_SHORT).show();
 
             }
         });
+
     }
 
     public void setUpCategoriesAdapter() {
@@ -57,9 +59,9 @@ public class CategoriesActivity extends BaseActivity {
         categoriesAdapter.setCategoriesData(categories);
         categoriesAdapter.setOnItemActionListener(new OnItemActionListener() {
             @Override
-            public void onClick(String categoryName) {
-                Intent intent = new Intent(CategoriesActivity.this, ProductsActivity.class);
-                intent.putExtra("category", categoryName);
+            public void onClick(int categoryId) {
+                Intent intent = new Intent(CategoriesActivity.this,ProductsActivity.class);
+                intent.putExtra("categories",categoryId);
                 startActivity(intent);
             }
         });
@@ -69,6 +71,4 @@ public class CategoriesActivity extends BaseActivity {
         binding.categoriesRv.setLayoutManager(new LinearLayoutManager(this));
         binding.categoriesRv.setAdapter(categoriesAdapter);
     }
-
-
 }

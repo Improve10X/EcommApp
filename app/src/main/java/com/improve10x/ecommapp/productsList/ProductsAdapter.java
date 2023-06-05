@@ -15,22 +15,25 @@ import java.util.List;
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsViewHolder> {
 
     private List<Products> products;
+    private String imageUrl;
 
-     OnItemActionListener onItemActionListener;
-    void setOnItemActionListener(OnItemActionListener onItemActionListener){
+    OnItemActionListener onItemActionListener;
+
+    void setOnItemActionListener(OnItemActionListener onItemActionListener) {
         this.onItemActionListener = onItemActionListener;
-
     }
 
-    void setProductsData(List<Products>products){
+
+    void setProductsData(List<Products> products) {
         this.products = products;
         notifyDataSetChanged();
 
     }
+
     @NonNull
     @Override
     public ProductsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ProductsItemBinding binding = ProductsItemBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
+        ProductsItemBinding binding = ProductsItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         ProductsViewHolder productsViewHolder = new ProductsViewHolder(binding);
         return productsViewHolder;
     }
@@ -40,9 +43,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsViewHolder> {
         Products product = products.get(position);
         holder.binding.productTitleTxt.setText(product.getTitle());
         holder.binding.priceTxt.setText(String.valueOf(product.getPrice()));
-        holder.binding.countTxt.setText(String.valueOf(product.rating.getCount()));
-        holder.binding.productRatingBar.setRating(product.rating.getRate());
-        Picasso.get().load(product.getImageUrl()).into(holder.binding.productImg);
+        Picasso.get().load(product.getImageUrl().get(0)).into(holder.binding.productImg);
         holder.binding.getRoot().setOnClickListener(v -> {
             onItemActionListener.onClicked(product.getId());
         });

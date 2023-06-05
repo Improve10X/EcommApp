@@ -17,7 +17,7 @@
         android:id="@+id/product_detail_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        imageUrl="@{product.imageUrl}"
+        imageUrl="@{product.imageUrl.get(0)}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

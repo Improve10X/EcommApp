@@ -54,7 +54,7 @@ public class ProductsDetailsActivity extends BaseActivity {
     }
 
     private void fetchProductDetails() {
-        Call<Products> call = fakeApiService.getProductDetails(productId);
+        Call<Products> call = fakeApiService.getProductDetails();
         call.enqueue(new Callback<Products>() {
             @Override
             public void onResponse(Call<Products> call, Response<Products> response) {

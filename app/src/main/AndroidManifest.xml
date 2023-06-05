@@ -15,6 +15,13 @@
         android:theme="@style/Theme.EcommApp"
         tools:targetApi="33">
         <activity
+            android:name=".SearchProductActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".cart.CartActivity"
             android:exported="false">
             <meta-data

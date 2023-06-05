@@ -2,6 +2,8 @@ package com.improve10x.ecommapp.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Products {
 
     private Integer id;
@@ -13,10 +15,16 @@ public class Products {
     private String description;
 
 
-    @SerializedName("image")
-    private String imageUrl;
+    @SerializedName("images")
+    private List<String> imageUrl;
 
-    public Rating rating;
+    public List<String> getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(List<String> imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public Integer getId() {
         return id;
@@ -50,11 +58,4 @@ public class Products {
         this.description = description;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 }
